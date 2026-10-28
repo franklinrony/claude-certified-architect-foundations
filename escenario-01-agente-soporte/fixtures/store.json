@@ -1,0 +1,76 @@
+{
+  "customers": [
+    {
+      "customer_id": "cus_100",
+      "email": "ana@example.test",
+      "name": "Ana Ruiz",
+      "account_status": "active"
+    },
+    {
+      "customer_id": "cus_200",
+      "email": "shared@example.test",
+      "name": "Luis Mora",
+      "account_status": "active"
+    },
+    {
+      "customer_id": "cus_201",
+      "email": "shared@example.test",
+      "name": "Luis Mora Jr",
+      "account_status": "active"
+    },
+    {
+      "customer_id": "cus_300",
+      "email": "restricted@example.test",
+      "name": "Nora Paz",
+      "account_status": "restricted"
+    }
+  ],
+  "orders": [
+    {
+      "order_id": "ord_10",
+      "customer_id": "cus_100",
+      "status_code": 3,
+      "placed_at": 1717200000,
+      "total": "42.50",
+      "currency": "USD",
+      "return_window_open": true,
+      "refunded": false,
+      "payment_token": "tok_should_be_trimmed",
+      "shipping_address": "123 Hidden St",
+      "items": [
+        {"sku": "A1", "name": "Mug", "qty": 1, "warehouse": "WH-9"}
+      ]
+    },
+    {
+      "order_id": "ord_11",
+      "customer_id": "cus_100",
+      "status_code": 2,
+      "placed_at": "2024-06-02T00:00:00Z",
+      "total": "780.00",
+      "currency": "USD",
+      "return_window_open": true,
+      "refunded": false,
+      "payment_token": "tok_big",
+      "shipping_address": "9 Secret Ave",
+      "items": [
+        {"sku": "B2", "name": "Headphones", "qty": 1, "warehouse": "WH-1"}
+      ]
+    },
+    {
+      "order_id": "ord_12",
+      "customer_id": "cus_100",
+      "status_code": 1,
+      "placed_at": 1600000000,
+      "total": "15.00",
+      "currency": "USD",
+      "return_window_open": false,
+      "refunded": false,
+      "payment_token": "tok_old",
+      "shipping_address": "1 Old Rd",
+      "items": [
+        {"sku": "C3", "name": "Cable", "qty": 2, "warehouse": "WH-2"}
+      ]
+    }
+  ],
+  "transient_emails": ["timeout@example.test"]
+}
