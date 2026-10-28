@@ -36,14 +36,38 @@ El catálogo de juguete está dos veces.
 
 El esquema `escenario_02` en PostgreSQL sigue vacío. Este caso no guarda pedidos.
 
-## Cómo probarlo
+## Caso de uso
 
-Desde esta carpeta:
+Se practica una corrección chica con Claude Code y se mira si obedeció la regla del proyecto. `start/catalogo/` es el original y no se toca. `end/catalogo/` es la copia de trabajo: empieza igual y ahí debe quedar el cambio. Al terminar la prueba, lo que haya quedado en `end/` se borra y se vuelve a copiar desde `start/`, para que la siguiente prueba empiece limpia.
+
+1. Desde esta carpeta, carga la clave sin imprimirla y abre Claude Code. Claude Code es el programa de terminal. La clave es la de la consola, la misma del escenario 1. Cada sesión gasta créditos.
 
 ```powershell
+Get-Content ..\escenario-01-agente-soporte\.env | ForEach-Object {
+  if ($_ -match '^\s*ANTHROPIC_API_KEY=(.+)$') { $env:ANTHROPIC_API_KEY = $matches[1].Trim('"') }
+}
+claude
+```
+
+2. Pide el arreglo directo, en una sola frase: corrige `format_price` para que `Decimal("19.90")` se vea `"19.90"`, escribe el cambio en `end/catalogo/precios.py` y no toques `start/`. Dentro de Claude Code también puedes usar `/arreglar`, el slash command guardado en `.claude/commands/arreglar.md`.
+
+3. Cierra Claude Code y revisa. `start/` no debe aparecer en el diff. `end/catalogo/precios.py` sí, si escribió el arreglo ahí.
+
+```powershell
+git diff -- start end
 python -m pytest
 ```
 
-Eso no usa `ANTHROPIC_API_KEY`. Las pruebas del catálogo importan `catalogo` una vez desde `start/` y otra desde `end/`. Hoy las dos copias deben dar `19.9` y el texto de `end/catalogo/` debe ser igual al de `start/catalogo/`. Si un cambio queda solo en `end/`, fallan la prueba de `end` y la de igualdad. `start/` sigue en verde.
+`pytest` no usa la API. Importa `catalogo` desde las dos carpetas. Antes de la prueba las dos dan `19.9` y el texto coincide. Si el cambio quedó solo en `end/`, `start/` sigue en verde y fallan la prueba de `end` y la de igualdad. Si `start/` también cambió, la regla no se cumplió.
+
+4. Cuando ya viste el resultado, borra la copia de trabajo y restaura `end/` desde `start/`. No borres `start/`.
+
+```powershell
+Remove-Item -Recurse -Force .\end\catalogo
+Copy-Item -Recurse .\start\catalogo .\end\catalogo
+python -m pytest
+```
+
+Al terminar, `end/` vuelve a ser igual que `start/` y las 13 pruebas pasan otra vez. No hace falta commitear lo que Claude escribió en `end/` durante la prueba.
 
 Las notas de qué juzga el examen están en [APRENDIZAJE.md](APRENDIZAJE.md).
