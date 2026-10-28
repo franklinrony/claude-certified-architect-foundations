@@ -12,7 +12,9 @@ Pedirle a la API "compórtate como Claude Code" no carga esos archivos ni cambia
 
 ## Qué decidir
 
-Plan mode cuando el cambio toca muchos archivos, hay más de un diseño posible, o la decisión es de arquitectura. Ejecución directa cuando el arreglo es una validación o un bug de una función y ya se sabe dónde está. `format_price` es el segundo caso: el defecto está en `src/catalogo/precios.py`.
+Plan mode cuando el cambio toca muchos archivos, hay más de un diseño posible, o la decisión es de arquitectura. Ejecución directa cuando el arreglo es una validación o un bug de una función y ya se sabe dónde está. `format_price` es el segundo caso. El original está en `start/catalogo/precios.py` y no se toca. La corrección se escribe en `end/catalogo/precios.py`.
+
+Esa prohibición vive en `CLAUDE.md` y en una regla con `paths`. Claude Code la lee. No es un permiso del sistema de archivos: si la desobedece, `start/` cambia y el diff lo muestra. El examen distingue una instrucción cargada por Claude Code de un control que el programa no puede saltarse.
 
 Explore acompaña la exploración larga dentro de plan mode. Devuelve un resumen. No reemplaza el plan ni justifica editar a ciegas.
 

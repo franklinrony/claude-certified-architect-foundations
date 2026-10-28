@@ -4,7 +4,7 @@ from estudio.workflow import Change, choose_workflow, memory_scope
 
 
 def test_one_localized_fix_is_direct_execution() -> None:
-    choice = choose_workflow(Change(files=("src/catalogo/precios.py",)))
+    choice = choose_workflow(Change(files=("end/catalogo/precios.py",)))
     assert choice.mode == "direct_execution"
     assert choice.explore is False
 
@@ -22,7 +22,7 @@ def test_many_files_use_plan_mode() -> None:
 
 def test_two_approaches_use_plan_mode_even_in_one_file() -> None:
     choice = choose_workflow(
-        Change(files=("src/catalogo/precios.py",), approaches=2, architectural=True)
+        Change(files=("end/catalogo/precios.py",), approaches=2, architectural=True)
     )
     assert choice.mode == "plan_mode"
 
@@ -38,3 +38,8 @@ def test_path_rule_names_tests_in_any_folder() -> None:
     rule = (Path(__file__).parents[1] / ".claude" / "rules" / "pruebas.md").read_text(encoding="utf-8")
     assert 'paths:' in rule
     assert '"**/test_*.py"' in rule
+    frozen = (Path(__file__).parents[1] / ".claude" / "rules" / "no-editar-start.md").read_text(
+        encoding="utf-8"
+    )
+    assert '"start/**/*"' in frozen
+    assert "end/" in frozen

@@ -14,7 +14,14 @@ Por eso esta carpeta no llama a la API. Lo que el examen pide juzgar está en lo
 
 ## Qué hay aquí
 
-El catálogo de juguete está en `src/catalogo/`. `format_price` pierde el cero de `19.90` y lo muestra como `19.9`. El fallo está en esa función. Arreglarlo es ejecución directa.
+El catálogo de juguete está dos veces.
+
+- `start/catalogo/` es el original. No se edita.
+- `end/catalogo/` empieza igual. Ahí se escribe cualquier cambio.
+
+`format_price` pierde el cero de `19.90` y lo muestra como `19.9`. El fallo está en esa función. Arreglarlo es ejecución directa, y el archivo que cambia es `end/catalogo/precios.py`.
+
+`CLAUDE.md` lo dice siempre. `.claude/rules/no-editar-start.md` lo repite con `paths: ["start/**/*"]`, así la regla entra justo cuando alguien abre un archivo de `start/`. Después de una sesión de Claude Code, compara las dos carpetas. Si `start/` cambió, la instrucción no se cumplió.
 
 | Archivo | Task del guide | Para qué mirarlo |
 | --- | --- | --- |
@@ -37,6 +44,6 @@ Desde esta carpeta:
 python -m pytest
 ```
 
-Eso no usa `ANTHROPIC_API_KEY`. El test `test_known_defect_drops_the_trailing_zero` documenta el defecto. Cuando lo corrijas, la salida esperada pasa a ser `"19.90"`.
+Eso no usa `ANTHROPIC_API_KEY`. `test_start_keeps_the_original_defect` lee `start/` y sigue esperando `19.9`. Si corriges el precio, el archivo es `end/catalogo/precios.py` y ese test no debe cambiar.
 
 Las notas de qué juzga el examen están en [APRENDIZAJE.md](APRENDIZAJE.md).
