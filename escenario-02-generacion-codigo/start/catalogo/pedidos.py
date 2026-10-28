@@ -1,4 +1,4 @@
-"""Un pedido usa el precio y la fecha. El defecto de formato no vive aquí."""
+"""Un pedido junta precio y fecha. El defecto está en el orden y en el separador."""
 
 from decimal import Decimal
 
@@ -7,4 +7,4 @@ from catalogo.precios import format_price
 
 
 def describe(amount: Decimal, placed_at) -> str:
-    return f"{label_day(placed_at)} {format_price(amount)}"
+    return f"{format_price(amount)} @ {label_day(placed_at)}"

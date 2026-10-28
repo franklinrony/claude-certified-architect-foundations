@@ -4,7 +4,8 @@ Estas reglas las carga Claude Code al abrir el proyecto. La Messages API no las 
 
 - Los importes se calculan con `Decimal`. No uses `float`.
 - `start/` es el ejemplo original. No edites nada dentro de `start/`.
-- Todo el código modificado se escribe en `end/`, conservando la misma ruta. El arreglo de `format_price` queda en `end/catalogo/precios.py`.
+- Todo el código modificado se escribe en `end/catalogo/`, conservando la misma ruta. Hay cinco fallos: `format_price`, `discounted_price`, `label_day`, `window_is_open` y `describe`.
+- `end/tests/` es el contrato. No edites esas pruebas para ponerlas verdes.
 - Un fallo localizado en una función se corrige en esa función, dentro de `end/`. No recorras el resto del catálogo.
 - Para buscar en el código, empieza por el síntoma. No leas todos los archivos de entrada.
 
