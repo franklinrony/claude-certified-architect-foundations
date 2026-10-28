@@ -1,0 +1,16 @@
+[project]
+name = "escenario-02-generacion-codigo"
+version = "0.1.0"
+description = "Escenario 2 CCAR-F. Claude Code se estudia con archivos y pytest, sin API."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
