@@ -13,15 +13,16 @@ Si otra fuente contradice esos documentos, gana el Exam Guide. Los términos del
 
 ## Escenarios
 
-De momento hay un escenario con carpeta. En PostgreSQL, base `ccar_f`, los esquemas `escenario_02` a `escenario_06` están reservados y todavía no tienen código.
+Hay dos escenarios con carpeta. En PostgreSQL, base `ccar_f`, el esquema `escenario_02` sigue vacío: ese caso no guarda datos. Los esquemas `escenario_03` a `escenario_06` están reservados y todavía no tienen código.
 
 | Escenario | Enlace | De qué trata |
 | --- | --- | --- |
 | 1. Customer Support Resolution Agent | [escenario-01-agente-soporte](escenario-01-agente-soporte/README.md) | Agente de soporte. Resuelve devoluciones, disputas de cobro y problemas de cuenta, y escala a una persona cuando la política lo pide. Usa el Claude Agent SDK y cuatro tools MCP: `get_customer`, `lookup_order`, `process_refund` y `escalate_to_human`. |
+| 2. Code Generation with Claude Code | [escenario-02-generacion-codigo](escenario-02-generacion-codigo/README.md) | Claude Code para generar, corregir y documentar código. `CLAUDE.md`, un slash command, reglas con `paths`, y cuándo usar plan mode. No usa la Messages API. |
 
 ## Cómo está armado
 
-- Un escenario por carpeta. El escenario 1 vive en `escenario-01-agente-soporte/`.
+- Un escenario por carpeta. El escenario 1 vive en `escenario-01-agente-soporte/`. El escenario 2 vive en `escenario-02-generacion-codigo/`.
 - Los datos de práctica viven en PostgreSQL, base `ccar_f`, un esquema por escenario.
 - La cadena de conexión y `ANTHROPIC_API_KEY` van en el `.env` de cada escenario. Ese archivo no se commitea. La plantilla del escenario 1 es [`.env.example`](escenario-01-agente-soporte/.env.example).
 - Una regla de identidad, dinero o permisos se aplica en código o en un hook. Un prompt no basta.
