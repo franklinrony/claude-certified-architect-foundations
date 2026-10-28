@@ -16,6 +16,8 @@ Plan mode cuando el cambio toca muchos archivos, hay más de un diseño posible,
 
 Esa prohibición vive en `CLAUDE.md` y en una regla con `paths`. Claude Code la lee. No es un permiso del sistema de archivos: si la desobedece, `start/` cambia y el diff lo muestra. El examen distingue una instrucción cargada por Claude Code de un control que el programa no puede saltarse.
 
+`pytest` importa `catalogo` desde las dos carpetas. Las pruebas de comportamiento son las mismas, y otra comprueba que el texto de `end/catalogo/` sigue igual al de `start/catalogo/`. Un arreglo bien puesto en `end/` deja `start/` en verde y vuelve roja la igualdad.
+
 Explore acompaña la exploración larga dentro de plan mode. Devuelve un resumen. No reemplaza el plan ni justifica editar a ciegas.
 
 Una convención que vale para todos los `test_*.py`, estén donde estén, va en `.claude/rules/` con `paths`. Un `CLAUDE.md` por carpeta no cubre archivos del mismo tipo repartidos por el árbol.
