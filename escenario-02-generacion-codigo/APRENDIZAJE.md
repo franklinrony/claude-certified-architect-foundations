@@ -16,7 +16,7 @@ Plan mode cuando el cambio toca muchos archivos, hay más de un diseño posible,
 
 Esa prohibición vive en `CLAUDE.md` y en una regla con `paths`. Claude Code la lee. No es un permiso del sistema de archivos: si la desobedece, `start/` cambia y el diff lo muestra. El examen distingue una instrucción cargada por Claude Code de un control que el programa no puede saltarse.
 
-Las pruebas no son las mismas para las dos copias. `tests/` vigila `start/` y espera el defecto. `end/tests/` describe el arreglo, `"19.90"`, y falla hasta que ese código cambie. No se editan esas pruebas para ponerlas verdes. Al terminar se borra `end/catalogo` y se copia desde `start/`. `end/tests/` se queda.
+Las pruebas no son las mismas para las dos copias. `tests/` vigila `start/` y espera los cinco defectos. `end/tests/` tiene un archivo por issue y describe el resultado correcto. Fallan hasta que el código de `end/catalogo/` cambie. No se editan esas pruebas para ponerlas verdes. Al terminar se borra `end/catalogo` y se copia desde `start/`. `end/tests/` se queda.
 
 Explore acompaña la exploración larga dentro de plan mode. Devuelve un resumen. No reemplaza el plan ni justifica editar a ciegas.
 
