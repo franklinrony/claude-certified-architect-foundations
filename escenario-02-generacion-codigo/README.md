@@ -44,6 +44,6 @@ Desde esta carpeta:
 python -m pytest
 ```
 
-Eso no usa `ANTHROPIC_API_KEY`. `test_start_keeps_the_original_defect` lee `start/` y sigue esperando `19.9`. Si corriges el precio, el archivo es `end/catalogo/precios.py` y ese test no debe cambiar.
+Eso no usa `ANTHROPIC_API_KEY`. Las pruebas del catálogo importan `catalogo` una vez desde `start/` y otra desde `end/`. Hoy las dos copias deben dar `19.9` y el texto de `end/catalogo/` debe ser igual al de `start/catalogo/`. Si un cambio queda solo en `end/`, fallan la prueba de `end` y la de igualdad. `start/` sigue en verde.
 
 Las notas de qué juzga el examen están en [APRENDIZAJE.md](APRENDIZAJE.md).
