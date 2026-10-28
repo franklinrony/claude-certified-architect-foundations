@@ -51,23 +51,27 @@ claude
 
 2. Pide el arreglo directo, en una sola frase: corrige `format_price` para que `Decimal("19.90")` se vea `"19.90"`, escribe el cambio en `end/catalogo/precios.py` y no toques `start/`. Dentro de Claude Code también puedes usar `/arreglar`, el slash command guardado en `.claude/commands/arreglar.md`.
 
-3. Cierra Claude Code y revisa. `start/` no debe aparecer en el diff. `end/catalogo/precios.py` sí, si escribió el arreglo ahí.
+3. Cierra Claude Code y corre las dos suites. No usan la API.
 
 ```powershell
 git diff -- start end
 python -m pytest
+python -m pytest end/tests
 ```
 
-`pytest` no usa la API. Importa `catalogo` desde las dos carpetas. Antes de la prueba las dos dan `19.9` y el texto coincide. Si el cambio quedó solo en `end/`, `start/` sigue en verde y fallan la prueba de `end` y la de igualdad. Si `start/` también cambió, la regla no se cumplió.
+`python -m pytest` solo lee `tests/`. Esa suite vigila `start/` y debe seguir en verde: el original todavía devuelve `19.9`. Si `start/` aparece en el diff, la regla no se cumplió.
 
-4. Cuando ya viste el resultado, borra la copia de trabajo y restaura `end/` desde `start/`. No borres `start/`.
+`python -m pytest end/tests` lee las pruebas aparte, en `end/tests/test_precio.py`. Dicen el resultado que se quiere: `Decimal("19.90")` se ve `"19.90"` y el pedido queda `2026-10-28 19.90`. Antes del arreglo fallan, porque `end/` todavía copia el defecto. Pasan cuando el cambio quedó en `end/catalogo/precios.py`. Esas pruebas no se editan para ponerlas verdes.
+
+4. Cuando ya viste el resultado, borra solo el código de trabajo y restaura `end/catalogo` desde `start/`. No borres `start/` ni `end/tests/`.
 
 ```powershell
 Remove-Item -Recurse -Force .\end\catalogo
 Copy-Item -Recurse .\start\catalogo .\end\catalogo
 python -m pytest
+python -m pytest end/tests
 ```
 
-Al terminar, `end/` vuelve a ser igual que `start/` y las 13 pruebas pasan otra vez. No hace falta commitear lo que Claude escribió en `end/` durante la prueba.
+`tests/` vuelve a pasar. `end/tests` vuelve a fallar, porque la copia otra vez tiene el defecto. No hace falta commitear lo que Claude escribió en `end/catalogo` durante la prueba.
 
 Las notas de qué juzga el examen están en [APRENDIZAJE.md](APRENDIZAJE.md).
